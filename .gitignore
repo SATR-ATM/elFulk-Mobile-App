@@ -43,3 +43,8 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Firebase production config (keep local/CI only, never commit real values)
+/android/app/src/production/google-services.json
+/ios/config/production/GoogleService-Info.plist
+/lib/firebase_options_production.dart
