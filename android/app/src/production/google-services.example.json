@@ -1,0 +1,9 @@
+{
+  "_comment": "Template only. Generate android/app/src/production/google-services.json locally with FlutterFire CLI.",
+  "project_info": {
+    "project_number": "REPLACE_ME",
+    "project_id": "REPLACE_ME",
+    "storage_bucket": "REPLACE_ME"
+  },
+  "client": []
+}

@@ -2,6 +2,12 @@
 
 A new Flutter project.
 
+## Firebase (Public Repo Policy)
+
+- Development Firebase config is committed for contributor onboarding.
+- Production Firebase config is not committed and must be created locally or injected in CI.
+- Setup guide: `docs/firebase-open-source.md`
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.

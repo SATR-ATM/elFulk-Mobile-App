@@ -1,0 +1,40 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "buildConfigurations": {
+          "src/development": {
+            "projectId": "elfulk-dev",
+            "appId": "1:319699333503:android:fc6faca5109224ebd3ea4a",
+            "fileOutput": "android/app/src/development/google-services.json"
+          }
+        }
+      },
+      "ios": {
+        "buildConfigurations": {
+          "Debug-Development": {
+            "projectId": "elfulk-dev",
+            "appId": "1:319699333503:ios:35deb51402de7405d3ea4a",
+            "uploadDebugSymbols": false,
+            "fileOutput": "ios/config/development/GoogleService-Info.plist"
+          },
+          "Release-Development": {
+            "projectId": "elfulk-dev",
+            "appId": "1:319699333503:ios:35deb51402de7405d3ea4a",
+            "uploadDebugSymbols": false,
+            "fileOutput": "ios/config/development/GoogleService-Info.plist"
+          }
+        }
+      },
+      "dart": {
+        "lib/firebase_options_development.dart": {
+          "projectId": "elfulk-dev",
+          "configurations": {
+            "android": "1:319699333503:android:fc6faca5109224ebd3ea4a",
+            "ios": "1:319699333503:ios:35deb51402de7405d3ea4a"
+          }
+        }
+      }
+    }
+  }
+}
