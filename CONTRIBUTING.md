@@ -23,6 +23,11 @@ This document defines the **default workflow for contributing to this repository
 
 5) After merge: **delete the branch** (remote + local).
 
+6) **Firebase production config must never be committed**
+   - ✅ Commit only development Firebase files
+   - ❌ Do not commit production Firebase files (`google-services.json`, `GoogleService-Info.plist`, `firebase_options_production.dart`)
+   - See `docs/firebase-open-source.md`
+
 ---
 
 ## 1) Issues + GitHub Projects (how work is organized)
