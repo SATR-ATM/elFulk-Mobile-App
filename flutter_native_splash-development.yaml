@@ -1,0 +1,14 @@
+# To generated the native splash screen development
+#? dart run flutter_native_splash:create --flavors development,production
+# run :
+flutter_native_splash:
+  # Android&iOS lower than 12
+  color: "#ffffff"
+  image: assets/images/splash_screen_development.png
+  # From Android 12 onwards, the splash screen is handled differently than in previous versions.
+  # Please visit https://developer.android.com/guide/topics/ui/splash-screen
+  # Following are specific parameters for Android 12+.
+  android_12:
+    color: "#ffffff"
+    image: assets/images/splash_screen_development.png
+  web: false
