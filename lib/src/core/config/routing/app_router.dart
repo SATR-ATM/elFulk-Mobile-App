@@ -4,6 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:elfulk/src/core/config/di/dependency_injection.dart';
+import 'package:elfulk/src/features/app_features/auth/ui/screens/login_screen.dart';
+import 'package:elfulk/src/features/app_features/auth/ui/screens/register_screen.dart';
+import 'package:elfulk/src/features/app_features/auth/ui/screens/forget_password_screen.dart';
 import 'package:elfulk/src/features/app_features/architecture/logic/cubit/architecture_cubit.dart';
 import 'package:elfulk/src/features/app_features/architecture/ui/screens/architecture_overview_screen.dart';
 import 'package:elfulk/src/features/app_features/home/logic/cubit/home_cubit.dart';
@@ -32,6 +35,24 @@ class AppRouter {
                 child: const HomeScreen(),
               ),
             ),
+      ),
+      GoRoute(
+        path: Routes.loginScreen,
+        pageBuilder:
+            (BuildContext context, GoRouterState state) =>
+                const MaterialPage<void>(child: LoginScreen()),
+      ),
+      GoRoute(
+        path: Routes.registerScreen,
+        pageBuilder:
+            (BuildContext context, GoRouterState state) =>
+                const MaterialPage<void>(child: RegisterScreen()),
+      ),
+      GoRoute(
+        path: Routes.forgetPasswordScreen,
+        pageBuilder:
+            (BuildContext context, GoRouterState state) =>
+                const MaterialPage<void>(child: ForgetPasswordScreen()),
       ),
       GoRoute(
         path: Routes.parentHomeScreen,

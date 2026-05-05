@@ -91,6 +91,20 @@ class DummyApiInterceptor extends Interceptor {
     if (method == 'GET' && path == ChildApiConstants.homeOverview) {
       return _jsonResponse(options, _childHomePayload(options));
     }
+    if (method == 'POST' && path == AppApiConstants.login) {
+      return _jsonResponse(options, <String, dynamic>{
+        'token': 'dummy_token_12345',
+        'userName': 'Nasreddine',
+        'email': 'nas@elfulk.ai',
+      });
+    }
+    if (method == 'POST' && path == AppApiConstants.register) {
+      return _jsonResponse(options, <String, dynamic>{
+        'token': 'dummy_token_register_67890',
+        'userName': 'New User',
+        'email': 'new@elfulk.ai',
+      });
+    }
 
     return null;
   }

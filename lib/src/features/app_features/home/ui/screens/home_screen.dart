@@ -130,6 +130,12 @@ class _HomeLoadedView extends StatelessWidget {
                         ),
                         FilledButton.tonal(
                           onPressed: () =>
+                              context.push(Routes.loginScreen),
+                          style: _buttonStyle(),
+                          child: const Text('Open Auth (Login)'),
+                        ),
+                        FilledButton.tonal(
+                          onPressed: () =>
                               context.push(Routes.parentRequestsScreen),
                           style: _buttonStyle(),
                           child: const Text('Open parent Bloc example'),
