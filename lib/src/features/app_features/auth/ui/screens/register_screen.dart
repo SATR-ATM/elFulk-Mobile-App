@@ -2,151 +2,170 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
-class RegisterScreen extends StatelessWidget {
+import '../widgets/auth_screen_template.dart';
+import '../widgets/custom_text_field.dart';
+import '../widgets/primary_button.dart';
+import '../widgets/auth_footer_text.dart';
+import '../widgets/divider_with_text.dart';
+import '../widgets/social_button.dart';
+
+class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
 
   @override
+  State<RegisterScreen> createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
+  // متغير للتحكم في حالة الموافقة على الشروط
+  bool _isTermsAccepted = true;
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFF10363A)),
-          onPressed: () => context.pop(),
-        ),
-      ),
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24.w),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  'Create Account',
-                  style: TextStyle(
-                    fontSize: 28.sp,
-                    fontWeight: FontWeight.bold,
-                    color: const Color(0xFF10363A),
-                  ),
+    return AuthScreenTemplate(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          // النصوص العلوية
+          Text(
+            'ابدأ رحلتك مع الفلك.',
+            style: TextStyle(
+              fontSize: 24.sp,
+              fontWeight: FontWeight.bold,
+              color: const Color(0xFF10363A),
+            ),
+          ),
+          SizedBox(height: 6.h),
+          Text(
+            'أنشئ حسابك في دقيقة وامنح طفلك فضاءً رقميًا آمنًا.',
+            style: TextStyle(
+              fontSize: 13.sp,
+              color: Colors.grey[600],
+            ),
+          ),
+          SizedBox(height: 24.h),
+
+          // حقل الاسم الكامل
+          const CustomTextField(
+            hintText: 'الاسم كامل',
+            prefixIcon: Icons.person_outline,
+          ),
+          SizedBox(height: 14.h),
+
+          // حقل البريد الإلكتروني
+          const CustomTextField(
+            hintText: 'البريد الإلكتروني',
+            prefixIcon: Icons.email_outlined,
+            keyboardType: TextInputType.emailAddress,
+          ),
+          SizedBox(height: 14.h),
+
+          // حقل كلمة المرور
+          const CustomTextField(
+            hintText: 'كلمة المرور',
+            prefixIcon: Icons.lock_outline,
+            isPassword: true,
+          ),
+          SizedBox(height: 16.h),
+
+          // زر الموافقة على الشروط والأحكام
+          Row(
+            children: [
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _isTermsAccepted = !_isTermsAccepted;
+                  });
+                },
+                child: Icon(
+                  _isTermsAccepted ? Icons.check_circle : Icons.circle_outlined,
+                  color: const Color(0xFF2F857D),
+                  size: 20.sp,
                 ),
-                SizedBox(height: 8.h),
-                Text(
-                  'Start your journey with ElFulk today.',
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    color: Colors.grey[600],
-                  ),
-                ),
-                SizedBox(height: 30.h),
-                _buildTextField(
-                  label: 'Full Name',
-                  hint: 'Enter your full name',
-                  icon: Icons.person_outline,
-                ),
-                SizedBox(height: 20.h),
-                _buildTextField(
-                  label: 'Email',
-                  hint: 'Enter your email',
-                  icon: Icons.email_outlined,
-                ),
-                SizedBox(height: 20.h),
-                _buildTextField(
-                  label: 'Password',
-                  hint: 'Create a password',
-                  icon: Icons.lock_outline,
-                  isPassword: true,
-                ),
-                SizedBox(height: 40.h),
-                SizedBox(
-                  width: double.infinity,
-                  height: 56.h,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // Register logic
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF10363A),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12.r),
-                      ),
-                      elevation: 0,
+              ),
+              SizedBox(width: 8.w),
+              Expanded(
+                child: RichText(
+                  text: TextSpan(
+                    text: 'أوافق على ',
+                    style: TextStyle(
+                      fontSize: 12.sp,
+                      color: const Color(0xFF10363A),
+                      fontWeight: FontWeight.w600,
                     ),
-                    child: Text(
-                      'Register',
-                      style: TextStyle(
-                        fontSize: 18.sp,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 24.h),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    const Text("Already have an account?"),
-                    TextButton(
-                      onPressed: () => context.pop(),
-                      child: Text(
-                        'Login',
-                        style: TextStyle(
-                          color: const Color(0xFF0F766E),
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14.sp,
+                    children: [
+                      TextSpan(
+                        text: 'شروط الاستخدام وسياسة الخصوصية.',
+                        style: const TextStyle(
+                          color: Color(0xFF2F857D),
+                          decoration: TextDecoration.underline,
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-                SizedBox(height: 20.h),
-              ],
-            ),
+              ),
+            ],
           ),
-        ),
-      ),
-    );
-  }
+          SizedBox(height: 24.h),
 
-  Widget _buildTextField({
-    required String label,
-    required String hint,
-    required IconData icon,
-    bool isPassword = false,
-  }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 14.sp,
-            fontWeight: FontWeight.w600,
-            color: Colors.black87,
+          // زر إنشاء الحساب من الـ Widgets
+          PrimaryButton(
+            text: 'انشاء حساب',
+            icon: Icons.login_outlined, // استخدمنا أيقونة مشابهة للتصميم
+            onPressed: _isTermsAccepted
+                ? () {
+                    // منطق التسجيل
+                  }
+                : null, // تعطيل الزر إذا لم تتم الموافقة
           ),
-        ),
-        SizedBox(height: 8.h),
-        TextField(
-          obscureText: isPassword,
-          decoration: InputDecoration(
-            hintText: hint,
-            prefixIcon: Icon(icon, color: const Color(0xFF0F766E)),
-            filled: true,
-            fillColor: Colors.grey[50],
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12.r),
-              borderSide: BorderSide.none,
-            ),
-            contentPadding: EdgeInsets.symmetric(
-              vertical: 16.h,
-              horizontal: 16.w,
-            ),
+          
+          SizedBox(height: 32.h),
+
+          // النص السفلي للانتقال لتسجيل الدخول
+          AuthFooterText(
+            questionText: 'لديك حساب بالفعل؟ ',
+            actionText: 'سجل الدخول',
+            onActionTap: () => context.pop(), // الرجوع لشاشة الدخول
           ),
-        ),
-      ],
+
+          SizedBox(height: 16.h),
+
+          // الفاصل المعنون
+          const DividerWithText(text: 'او عن طريق'),
+          
+          SizedBox(height: 16.h),
+
+          // أزرار التسجيل عبر آبل وجوجل
+          Row(
+            children: [
+              Expanded(
+                child: SocialButton(
+                    iconSize: 22.sp,
+                  icon: Icons.apple,
+                  type: 'Apple',
+                  // appleIconSize: 22.sp,
+                  onPressed: () {
+                    // منطق آبل
+                  },
+                ),
+              ),
+              SizedBox(width: 16.w),
+              Expanded(
+                child: SocialButton(
+                  iconSize: 30.sp,
+                  icon: Icons.g_mobiledata_rounded,
+                  type: 'Google',
+                  // googleTextSize: 20.sp,
+                  onPressed: () {
+                    // منطق جوجل
+                  },
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

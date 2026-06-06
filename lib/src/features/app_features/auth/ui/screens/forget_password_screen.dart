@@ -2,115 +2,103 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
+import '../widgets/auth_screen_template.dart';
+import '../widgets/custom_text_field.dart';
+import '../widgets/primary_button.dart';
+import '../widgets/auth_footer_text.dart';
+import '../widgets/divider_with_text.dart';
+import '../widgets/social_button.dart';
+
 class ForgetPasswordScreen extends StatelessWidget {
   const ForgetPasswordScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFF10363A)),
-          onPressed: () => context.pop(),
-        ),
-      ),
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                'Forgot Password',
-                style: TextStyle(
-                  fontSize: 28.sp,
-                  fontWeight: FontWeight.bold,
-                  color: const Color(0xFF10363A),
-                ),
-              ),
-              SizedBox(height: 8.h),
-              Text(
-                'Enter your email to receive a password reset link.',
-                style: TextStyle(
-                  fontSize: 16.sp,
-                  color: Colors.grey[600],
-                ),
-              ),
-              SizedBox(height: 30.h),
-              _buildTextField(
-                label: 'Email',
-                hint: 'Enter your email',
-                icon: Icons.email_outlined,
-              ),
-              SizedBox(height: 40.h),
-              SizedBox(
-                width: double.infinity,
-                height: 56.h,
-                child: ElevatedButton(
+    return AuthScreenTemplate(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            'نسيت كلمة المرور؟',
+            style: TextStyle(
+              fontSize: 26.sp,
+              fontWeight: FontWeight.bold,
+              color: const Color(0xFF10363A),
+            ),
+          ),
+          SizedBox(height: 12.h),
+          Text(
+            'أدخل بريدك الإلكتروني وسنرسل لك رمز التحقق.',
+            style: TextStyle(
+              fontSize: 14.sp,
+              color: Colors.grey[500],
+            ),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(height: 32.h),
+          
+          // حقل إدخال البريد الإلكتروني
+          const CustomTextField(
+            hintText: 'البريد الإلكتروني',
+            prefixIcon: Icons.email_outlined,
+            keyboardType: TextInputType.emailAddress,
+          ),
+          SizedBox(height: 24.h),
+          
+          // زر الإرسال الرئيسي
+          PrimaryButton(
+            text: 'ارسال رمز التحقق',
+            rtlIcon: true, // لجعل الأيقونة تظهر على اليمين
+            icon: Icons.send_rounded,
+            onPressed: () {
+              // إضافة منطق إرسال الرمز هنا
+            },
+          ),
+          SizedBox(height: 24.h),
+          
+          // نص الرجوع لتسجيل الدخول
+          AuthFooterText(
+            questionText: 'تذكرت كلمة المرور الخاصة بك؟ ',
+            actionText: 'سجل الدخول',
+            onActionTap: () => context.pop(),
+          ),
+          SizedBox(height: 32.h),
+          
+          // فاصل الدخول بطرق أخرى
+          const DividerWithText(text: 'او عن طريق'),
+          SizedBox(height: 24.h),
+          
+          // أزرار آبل وجوجل
+          Row(
+            children: [
+              Expanded(
+                child: SocialButton(
+                  icon: Icons.apple,
+                  iconSize: 22.sp,
+                  type: 'Apple',
+                    // appleIconSize: 22.sp,
                   onPressed: () {
-                    // Reset logic
+                    // منطق تسجيل الدخول عبر آبل
                   },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF10363A),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.r),
-                    ),
-                    elevation: 0,
-                  ),
-                  child: Text(
-                    'Send Reset Link',
-                    style: TextStyle(
-                      fontSize: 18.sp,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+                ),
+              ),
+              SizedBox(width: 16.w),
+              Expanded(
+                child: SocialButton(
+                  iconSize: 30.sp,
+                  icon: Icons.g_mobiledata_rounded,
+                  type: 'Google',
+                  // googleTextSize: 20.sp,
+                  onPressed: () {
+                    // منطق تسجيل الدخول عبر جوجل
+                  },
                 ),
               ),
             ],
           ),
-        ),
+        ],
       ),
     );
   }
-
-  Widget _buildTextField({
-    required String label,
-    required String hint,
-    required IconData icon,
-  }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 14.sp,
-            fontWeight: FontWeight.w600,
-            color: Colors.black87,
-          ),
-        ),
-        SizedBox(height: 8.h),
-        TextField(
-          decoration: InputDecoration(
-            hintText: hint,
-            prefixIcon: Icon(icon, color: const Color(0xFF0F766E)),
-            filled: true,
-            fillColor: Colors.grey[50],
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12.r),
-              borderSide: BorderSide.none,
-            ),
-            contentPadding: EdgeInsets.symmetric(
-              vertical: 16.h,
-              horizontal: 16.w,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
 }
+

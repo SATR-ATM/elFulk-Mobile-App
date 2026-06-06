@@ -18,6 +18,7 @@ import 'package:elfulk/src/features/parent_features/parent_home/ui/screens/paren
 import 'package:elfulk/src/features/parent_features/parent_requests/logic/bloc/parent_requests_bloc.dart';
 import 'package:elfulk/src/features/parent_features/parent_requests/ui/screens/parent_requests_screen.dart';
 
+import '../../../features/app_features/auth/ui/screens/otp_verification_screen.dart';
 import 'routes.dart';
 
 class AppRouter {
@@ -47,6 +48,17 @@ class AppRouter {
         pageBuilder:
             (BuildContext context, GoRouterState state) =>
                 const MaterialPage<void>(child: RegisterScreen()),
+
+      ),
+      GoRoute(path: Routes.otpVerificationScreen,
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          final OtpVerificationType type = state.uri.queryParameters['type'] == 'email'
+              ? OtpVerificationType.emailVerification
+              : OtpVerificationType.passwordReset;
+          return MaterialPage<void>(
+            child: OtpVerificationScreen(type: type),
+          );
+        },
       ),
       GoRoute(
         path: Routes.forgetPasswordScreen,

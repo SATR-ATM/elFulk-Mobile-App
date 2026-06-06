@@ -134,6 +134,18 @@ class _HomeLoadedView extends StatelessWidget {
                           style: _buttonStyle(),
                           child: const Text('Open Auth (Login)'),
                         ),
+                              FilledButton.tonal(
+                          onPressed: () =>
+                              context.push('${Routes.otpVerificationScreen}?type=email'),
+                          style: _buttonStyle(),
+                          child: const Text('Open Auth (OTP Verification template)'),
+                        ),
+                                FilledButton.tonal(
+                          onPressed: () =>
+                              context.push('${Routes.otpVerificationScreen}?type=password'),
+                          style: _buttonStyle(),
+                          child: const Text('Open Auth (OTP Password Reset template)' ),
+                        ),
                         FilledButton.tonal(
                           onPressed: () =>
                               context.push(Routes.parentRequestsScreen),
