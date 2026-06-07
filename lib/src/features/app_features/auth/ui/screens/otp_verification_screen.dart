@@ -14,7 +14,8 @@ enum OtpVerificationType {
 
 class OtpVerificationScreen extends StatefulWidget {
   final OtpVerificationType type;
-
+ 
+ 
   const OtpVerificationScreen({super.key, required this.type});
 
   @override
