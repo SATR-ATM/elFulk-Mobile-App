@@ -80,7 +80,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
             textDirection: TextDirection.ltr, // لضمان ترتيب الخانات من اليسار لليمين
             children: List.generate(5, (index) {
               bool isFilled = index < _otpCode.length;
-
+  
               return Container(
                 width: 50.w,
                 height: 55.h,
