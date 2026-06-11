@@ -52,3 +52,5 @@ app.*.map.json
 # Tools and environments
 graphify-out/
 .venv/
+/README_screenutil.md 
+
