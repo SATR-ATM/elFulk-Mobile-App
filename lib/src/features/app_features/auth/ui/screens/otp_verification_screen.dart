@@ -4,7 +4,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:elfulk/src/core/helpers/helpers.dart';
 import 'package:elfulk/src/core/widgets/app_screen_template.dart';
+import 'package:elfulk/src/core/widgets/custom_pin_keypad.dart';
 import 'package:elfulk/src/core/widgets/footer_text.dart';
+import 'package:elfulk/src/core/widgets/pin_display_row.dart';
 import 'package:elfulk/src/core/widgets/primary_button.dart';
 
 enum OtpVerificationType {
@@ -38,6 +40,12 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
         _otpCode = _otpCode.substring(0, _otpCode.length - 1);
       });
     }
+  }
+
+  void _onClearPress() {
+    setState(() {
+      _otpCode = '';
+    });
   }
 
   @override
@@ -79,42 +87,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
           ),
           SizedBox(height: context.spacing.lg.h),
 
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            textDirection: TextDirection.ltr,
-            children: List.generate(5, (index) {
-              final bool isFilled = index < _otpCode.length;
-
-              return Container(
-                width: 50.w,
-                height: 55.h,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: theme.colorScheme.surfaceContainerHighest,
-                  borderRadius: BorderRadius.circular(context.radius.lg.r),
-                  border: Border.all(
-                    color: isFilled
-                        ? theme.colorScheme.primary
-                        : theme.colorScheme.outline,
-                    width: 1.5,
-                  ),
-                ),
-                child: Text(
-                  isFilled ? _otpCode[index] : '',
-                  style: theme.textTheme.headlineSmall?.copyWith(
-                        fontSize: 22.sp,
-                        fontWeight: FontWeight.bold,
-                        color: theme.colorScheme.primary,
-                      ) ??
-                      TextStyle(
-                        fontSize: 22.sp,
-                        fontWeight: FontWeight.bold,
-                        color: theme.colorScheme.primary,
-                      ),
-                ),
-              );
-            }),
-          ),
+          PinDisplayRow(value: _otpCode, length: 5),
           SizedBox(height: context.spacing.md.h),
 
           FooterText(
@@ -143,85 +116,12 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
           ),
 
           SizedBox(height: context.spacing.xl.h),
-          _buildCustomKeypad(theme),
+          CustomPinKeypad(
+            onDigitPressed: _onDigitPress,
+            onBackspacePressed: _onBackspacePress,
+            onClearPressed: _onClearPress,
+          ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildCustomKeypad(ThemeData theme) {
-    return Column(
-      children: [
-        _buildKeypadRow(theme, ['1', '2', '3']),
-        SizedBox(height: context.spacing.sm12.h),
-        _buildKeypadRow(theme, ['4', '5', '6']),
-        SizedBox(height: context.spacing.sm12.h),
-        _buildKeypadRow(theme, ['7', '8', '9']),
-        SizedBox(height: context.spacing.sm12.h),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            _buildKeypadButton(
-              theme,
-              icon: Icons.backspace_outlined,
-              isBackspace: true,
-            ),
-            _buildKeypadButton(theme, text: '0'),
-            _buildKeypadButton(theme, icon: Icons.refresh),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Widget _buildKeypadRow(ThemeData theme, List<String> digits) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: digits.map((digit) => _buildKeypadButton(theme, text: digit)).toList(),
-    );
-  }
-
-  Widget _buildKeypadButton(
-    ThemeData theme, {
-    String? text,
-    IconData? icon,
-    bool isBackspace = false,
-  }) {
-    return GestureDetector(
-      onTap: () {
-        if (text != null) {
-          _onDigitPress(text);
-        } else if (isBackspace) {
-          _onBackspacePress();
-        } else {
-          setState(() {
-            _otpCode = '';
-          });
-        }
-      },
-      child: Container(
-        width: 100.w,
-        height: 42.h,
-        decoration: BoxDecoration(
-          color: theme.colorScheme.surfaceContainer,
-          borderRadius: BorderRadius.circular(context.radius.xl.r),
-        ),
-        child: Center(
-          child: text != null
-              ? Text(
-                  text,
-                  style: theme.textTheme.titleMedium?.copyWith(
-                        fontSize: 22.sp,
-                        fontWeight: FontWeight.w600,
-                      ) ??
-                      TextStyle(
-                        fontSize: 22.sp,
-                        fontWeight: FontWeight.w600,
-                        color: theme.colorScheme.onSurface,
-                      ),
-                )
-              : Icon(icon, size: 24.sp, color: theme.colorScheme.onSurface),
-        ),
       ),
     );
   }

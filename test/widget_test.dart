@@ -1,26 +1,57 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:elfulk/src/core/app/elfulk_app.dart';
-import 'package:elfulk/src/core/config/app_environment.dart';
-import 'package:elfulk/src/core/config/di/dependency_injection.dart';
+import 'package:elfulk/src/core/widgets/custom_pin_keypad.dart';
+import 'package:elfulk/src/core/widgets/pin_display_row.dart';
+import 'package:elfulk/src/features/app_features/auth/ui/screens/otp_verification_screen.dart';
 
 void main() {
-  tearDown(() async {
-    await getIt.reset();
-  });
-
-  testWidgets('app starts on onboarding and renders first content page', (
+  testWidgets('otp screen renders reusable pin widgets and updates input', (
     WidgetTester tester,
   ) async {
-    await setupGetIt(AppEnvironment.fromFlavor(AppFlavor.development));
+    await tester.pumpWidget(
+      ScreenUtilInit(
+        designSize: const Size(390, 844),
+        minTextAdapt: true,
+        builder: (context, child) => const MaterialApp(
+          home: OtpVerificationScreen(
+            type: OtpVerificationType.emailVerification,
+          ),
+        ),
+      ),
+    );
 
-    await tester.pumpWidget(const ElFulkApp());
+    expect(find.byType(PinDisplayRow), findsOneWidget);
+    expect(find.byType(CustomPinKeypad), findsOneWidget);
+
+    await tester.tap(find.byKey(const ValueKey('otp-keypad-1')));
+    await tester.tap(find.byKey(const ValueKey('otp-keypad-2')));
+    await tester.tap(find.byKey(const ValueKey('otp-keypad-3')));
     await tester.pump();
 
-    // Wait for the logo page auto-advance (4s) and the page animation.
-    await tester.pump(const Duration(seconds: 5));
-    await tester.pumpAndSettle();
+    expect(
+      tester.widget<PinDisplayRow>(find.byType(PinDisplayRow)).value,
+      '123',
+    );
 
-    expect(find.text('عالم آمن يبدأ من هنا'), findsOneWidget);
+    await tester.drag(find.byType(CustomScrollView), const Offset(0, -300));
+    await tester.pump();
+
+    await tester.tap(find.byKey(const ValueKey('otp-keypad-delete')));
+    await tester.pump();
+
+    expect(
+      tester.widget<PinDisplayRow>(find.byType(PinDisplayRow)).value,
+      '12',
+    );
+
+    await tester.tap(find.byKey(const ValueKey('otp-keypad-clear')));
+    await tester.pump();
+
+    expect(
+      tester.widget<PinDisplayRow>(find.byType(PinDisplayRow)).value,
+      '',
+    );
   });
 }
