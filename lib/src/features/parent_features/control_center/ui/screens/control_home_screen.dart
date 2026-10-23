@@ -7,6 +7,7 @@ import 'package:elfulk/src/core/helpers/helpers.dart';
 import 'package:elfulk/src/core/widgets/activity_stats_card.dart';
 import 'package:elfulk/src/core/widgets/app_filter_chip.dart';
 import 'package:elfulk/src/core/widgets/section_header.dart';
+import 'package:elfulk/src/core/widgets/settings_list_tile.dart';
 
 /// لوحة الأنشطة (جذر تبويب مركز التحكم) حسب التصميم (عربي RTL).
 ///
@@ -165,7 +166,16 @@ class _ControlHomeScreenState extends State<ControlHomeScreen> {
             ],
           ),
           SizedBox(height: context.spacing.md.h),
-          _WeekSummaryCard(onTap: () {}),
+          SettingsListTile(
+            key: const ValueKey('control-rules-entry'),
+            title: 'تخصيص القواعد',
+            leading: const Icon(Icons.rule_folder_outlined),
+            leadingBackgroundColor: theme.colorScheme.surfaceContainerHighest,
+            trailing: const SettingsTileTrailing.chevron(),
+            onTap: () => context.push(Routes.rulesHubScreen),
+          ),
+          SizedBox(height: context.spacing.md.h),
+          const _WeekSummaryCard(),
         ],
       ),
     );
@@ -311,9 +321,7 @@ class _MiniCategory extends StatelessWidget {
 
 /// بطاقة ملخص الأسبوع (أيقونة تقويم + إجمالي متمركز + حبة الأسبوع).
 class _WeekSummaryCard extends StatelessWidget {
-  final VoidCallback? onTap;
-
-  const _WeekSummaryCard({this.onTap});
+  const _WeekSummaryCard();
 
   @override
   Widget build(BuildContext context) {

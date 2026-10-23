@@ -48,10 +48,7 @@ class PrimaryButton extends StatelessWidget {
             ),
             ...[
               if (rtlIcon) ...[
-                Transform.flip(
-                  flipX: true,
-                  child: icon,
-                ),
+                Transform.flip(flipX: true, child: icon),
                 SizedBox(width: context.spacing.sm.w),
               ] else ...[
                 SizedBox(width: context.spacing.sm.w),

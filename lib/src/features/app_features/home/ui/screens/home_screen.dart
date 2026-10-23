@@ -215,7 +215,11 @@ class _DashboardTab extends StatelessWidget {
               ),
           ],
           actionLabel: dashboard.reportActionLabel,
-          onAction: () {},
+          onAction: () => ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('التقرير التفصيلي سيتوفر بعد ربط الخادم.'),
+            ),
+          ),
         ),
         SizedBox(height: context.spacing.lg.h),
         for (final LibrarySectionData section in dashboard.sections) ...[
@@ -224,9 +228,15 @@ class _DashboardTab extends StatelessWidget {
             childLabel: section.childLabel,
             rows: [
               for (final r in section.rows)
-                LibraryContentRow(title: r.title, tags: r.tags, badge: r.badge),
+                LibraryContentRow(
+                  title: r.title,
+                  tags: r.tags,
+                  badge: r.badge,
+                  onTap: () => context.push(Routes.contentHubScreen),
+                ),
             ],
             actionLabel: section.actionLabel,
+            onAction: () => context.push(Routes.contentHubScreen),
           ),
           SizedBox(height: context.spacing.lg.h),
         ],
@@ -326,8 +336,8 @@ class _ChildCardAdapter extends StatelessWidget {
         ),
       ],
       actionLabel: 'الانتقال إلى وجهته الخاصة',
-      onAction: () {},
-      onMenu: () {},
+      onAction: () => context.push(Routes.childHomeScreen),
+      onMenu: () => context.push(Routes.parentKidsScreen),
     );
   }
 }

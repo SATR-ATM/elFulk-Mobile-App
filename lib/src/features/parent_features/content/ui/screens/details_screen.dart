@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+
+import 'package:elfulk/src/core/config/routing/routes.dart';
 
 import 'package:elfulk/src/core/helpers/helpers.dart';
 import 'package:elfulk/src/core/widgets/app_error_card.dart';
@@ -152,6 +155,68 @@ class _DetailsBody extends StatelessWidget {
                 ),
                 SizedBox(width: context.spacing.sm.w),
                 const Icon(Icons.download_outlined, size: 20),
+              ],
+            ),
+          ),
+        ),
+        SizedBox(height: context.spacing.sm.h),
+        SizedBox(
+          height: 48.h,
+          child: OutlinedButton(
+            key: const ValueKey('details-consume'),
+            onPressed: item.type == ContentType.stories
+                ? () => context.push(
+                    Uri(
+                      path: Routes.readerScreen,
+                      queryParameters: <String, String>{'id': item.id},
+                    ).toString(),
+                  )
+                : () => ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        item.type == ContentType.games
+                            ? 'تُفتح اللعبة من جهاز طفلك بعد إقران الجهاز.'
+                            : 'تُتاح المشاهدة من جهاز طفلك بعد إقران الجهاز.',
+                      ),
+                    ),
+                  ),
+            style: OutlinedButton.styleFrom(
+              foregroundColor: theme.colorScheme.primary,
+              side: BorderSide(
+                color: theme.colorScheme.primary.withValues(alpha: 0.45),
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(context.radius.xl.r),
+              ),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Flexible(
+                  child: Text(
+                    item.type == ContentType.stories
+                        ? 'قراءة الآن'
+                        : item.type == ContentType.games
+                        ? 'الدخول إلى اللعبة'
+                        : 'مشاهدة',
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontSize: 15.sp,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+                SizedBox(width: context.spacing.sm.w),
+                Icon(
+                  item.type == ContentType.stories
+                      ? Icons.menu_book_outlined
+                      : item.type == ContentType.games
+                      ? Icons.sports_esports_outlined
+                      : Icons.play_circle_outline_rounded,
+                  size: 20.sp,
+                ),
               ],
             ),
           ),

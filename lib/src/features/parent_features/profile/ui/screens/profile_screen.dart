@@ -55,17 +55,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
             email: 'example123@gmail.com',
             stats: const [
               StatData(
-                  label: 'عدد الأطفال',
-                  value: '3 أطفال',
-                  valueColor: Color(0xFF2E8C84)),
+                label: 'عدد الأطفال',
+                value: '3 أطفال',
+                valueColor: Color(0xFF2E8C84),
+              ),
               StatData(
-                  label: 'الأجهزة المرتبطة',
-                  value: '3 أجهزة',
-                  valueColor: Color(0xFF2E8C84)),
+                label: 'الأجهزة المرتبطة',
+                value: '3 أجهزة',
+                valueColor: Color(0xFF2E8C84),
+              ),
               StatData(
-                  label: 'التنبيهات المعلقة',
-                  value: '3 تنبيهات',
-                  valueColor: Color(0xFFF59E0B)),
+                label: 'التنبيهات المعلقة',
+                value: '3 تنبيهات',
+                valueColor: Color(0xFFF59E0B),
+              ),
             ],
             onMenu: () => _showHeaderMenu(context),
           ),
@@ -75,8 +78,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               SettingsListTile(
                 title: 'الانتقال إلى واجهة الطفل',
                 leading: const Icon(Icons.people_outline_rounded),
-                leadingBackgroundColor: theme
-                    .colorScheme.surfaceContainerHighest,
+                leadingBackgroundColor:
+                    theme.colorScheme.surfaceContainerHighest,
                 trailing: SettingsTileTrailing.switch_(
                   value: _kidMode,
                   onChanged: (bool v) => setState(() => _kidMode = v),
@@ -97,8 +100,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               SettingsListTile(
                 title: 'أطفالي',
                 leading: const Icon(Icons.people_outline_rounded),
-                leadingBackgroundColor: theme
-                    .colorScheme.surfaceContainerHighest,
+                leadingBackgroundColor:
+                    theme.colorScheme.surfaceContainerHighest,
                 trailing: const SettingsTileTrailing.chevron(),
                 backgroundColor: Colors.transparent,
                 borderRadius: 0,
@@ -109,8 +112,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               SettingsListTile(
                 title: 'الأجهزة المرتبطة',
                 leading: const Icon(Icons.devices_outlined),
-                leadingBackgroundColor: theme
-                    .colorScheme.surfaceContainerHighest,
+                leadingBackgroundColor:
+                    theme.colorScheme.surfaceContainerHighest,
                 trailing: const SettingsTileTrailing.chevron(),
                 backgroundColor: Colors.transparent,
                 borderRadius: 0,
@@ -125,8 +128,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               SettingsListTile(
                 title: 'إعدادات التطبيق',
                 leading: const Icon(Icons.settings_outlined),
-                leadingBackgroundColor: theme
-                    .colorScheme.surfaceContainerHighest,
+                leadingBackgroundColor:
+                    theme.colorScheme.surfaceContainerHighest,
                 trailing: const SettingsTileTrailing.chevron(),
                 backgroundColor: Colors.transparent,
                 borderRadius: 0,
@@ -137,13 +140,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
               SettingsListTile(
                 title: 'إعدادات الحساب',
                 leading: const Icon(Icons.person_outline_rounded),
-                leadingBackgroundColor: theme
-                    .colorScheme.surfaceContainerHighest,
+                leadingBackgroundColor:
+                    theme.colorScheme.surfaceContainerHighest,
                 trailing: const SettingsTileTrailing.chevron(),
                 backgroundColor: Colors.transparent,
                 borderRadius: 0,
                 showDivider: false,
+                dashedDivider: true,
                 onTap: () => context.push(Routes.accountSettingsScreen),
+              ),
+              SettingsListTile(
+                title: 'المساعدة والدعم',
+                leading: const Icon(Icons.help_outline_rounded),
+                leadingBackgroundColor:
+                    theme.colorScheme.surfaceContainerHighest,
+                trailing: const SettingsTileTrailing.chevron(),
+                backgroundColor: Colors.transparent,
+                borderRadius: 0,
+                showDivider: false,
+                onTap: () => context.push(Routes.helpScreen),
               ),
             ],
           ),
@@ -283,8 +298,9 @@ class _ProfileChildRow extends StatelessWidget {
                       textAlign: TextAlign.end,
                       style: TextStyle(
                         fontSize: 12.sp,
-                        color: theme.colorScheme.onSurface
-                            .withValues(alpha: 0.6),
+                        color: theme.colorScheme.onSurface.withValues(
+                          alpha: 0.6,
+                        ),
                       ),
                     ),
                   ],
@@ -294,17 +310,14 @@ class _ProfileChildRow extends StatelessWidget {
               Icon(
                 Icons.chevron_left_rounded,
                 size: 20.sp,
-                color:
-                    theme.colorScheme.onSurface.withValues(alpha: 0.4),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
                 textDirection: TextDirection.ltr,
               ),
             ],
           ),
         ),
         if (dashedDivider)
-          const AppDashedDivider(
-            key: ValueKey('profile-child-divider'),
-          )
+          const AppDashedDivider(key: ValueKey('profile-child-divider'))
         else
           const SizedBox.shrink(),
       ],
